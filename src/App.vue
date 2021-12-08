@@ -1,27 +1,26 @@
 <template>
-  <div class="App">
+  <div class="App" data-app="app">
     <!-- Navigation -->
-    <nav
-      class="navbar shadow bg-white rounded justify-content-between flex-nowrap flex-row fixed-top"
-    >
-      <div class="container">
-        <ul class="nav navbar-nav flex-row float-right">
-          <li class="nav-item">
-            <router-link class="btn nav-link pr-3" to="/">Sign in</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="btn btn-outline-primary" to="/signup"
-              >Sign up</router-link
-            >
-          </li>
-        </ul>
+    <nav class="container navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto">
+          <router-link to="/products" class="nav-item nav-link"
+            >Home</router-link
+          >
+          <router-link to="#" class="nav-item nav-link">About</router-link>
+          <router-link to="#" class="nav-link">Media</router-link>
+          <router-link to="#" class="nav-link">Market place</router-link>
+          <router-link to="#" class="nav-link">Networks</router-link>
+          <router-link to="#" class="nav-link">Followers</router-link>
+          <router-link to="/" class="nav-item nav-link">Log out</router-link>
+        </div>
       </div>
     </nav>
 
     <!-- Main -->
-    <div class="App">
+    <div class="app-body">
       <div class="vertical-center">
-        <div class="App">
+        <div class="inner-block">
           <router-view />
         </div>
       </div>
@@ -30,15 +29,31 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
-  name: "app",
+  computed: {
+    ...mapGetters({
+      isLoggedIn: "isLoggedIn",
+    }),
+  },
 };
 </script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+#nav {
+  background: whitesmoke;
+}
+#nav {
+  padding: 30px;
+  text-align: center;
+}
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+#nav a.router-link-exact-active {
+  color: whitesmoke;
+  background: crimson;
+  border-radius: 0.5rem;
 }
 </style>

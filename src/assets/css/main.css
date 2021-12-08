@@ -3,7 +3,7 @@
 }
 
 body {
-  background: #2554ff !important;
+  background: white !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -15,6 +15,11 @@ html,
 .vertical-center {
   width: 100%;
   height: 100%;
+}
+
+.app-body {
+  width: 100%;
+  display: block;
 }
 
 .navbar-light {
@@ -32,7 +37,7 @@ html,
 .auth-template {
   width: 450px;
   margin: 15% 30% 15% 30%;
-  background: #ffffff;
+  background: transparent;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
   padding: 40px 55px 45px 55px;
   border-radius: 15px;
@@ -112,4 +117,62 @@ label {
 .social-icons ul li a:active i {
   transition: none;
   color: #222222;
+}
+
+.modal-edit {
+  margin-top: 100px;
+}
+
+.add-product {
+  background-color: darkgray;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: block;
+  padding-top: 45%;
+  padding-left: 10%;
+}
+
+.products-template {
+  margin: 100px 100px 5% 100px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  background-color: whitesmoke;
+}
+
+.app-product {
+  margin-bottom: 10px;
+}
+
+.input-field {
+  width: 300px;
+}
+
+.input-long-field {
+  width: 400px;
+  position: relative;
+  top: -180px;
+}
+
+.product-form {
+  margin-top: 50px;
+}
+
+.form-btn {
+  margin: 10px;
+}
+
+.input-file {
+  width: 180px;
+  height: 200px;
+  background-color: whitesmoke;
+  float: right;
+  position: relative;
+  top: -210px;
+  left: 20px;
+  border-style: dashed;
+  cursor: pointer;
 }

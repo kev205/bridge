@@ -5,39 +5,60 @@
 
       <div class="form-group">
         <label>Email address</label>
-        <input type="email" class="form-control form-control-lg" />
+        <v-text-field
+          v-model="email"
+          required
+          class="input-field"
+        ></v-text-field>
       </div>
 
       <div class="form-group">
         <label>Password</label>
-        <input type="password" class="form-control form-control-lg" />
+        <v-text-field
+          v-model="password"
+          required
+          class="input-field"
+          type="password"
+        ></v-text-field>
       </div>
-
-      <button type="submit" class="btn btn-dark btn-lg btn-block">
-        Sign In
-      </button>
-
-      <div class="social-icons">
-        <ul>
-          <li>
-            <a href="#"><i class="fa fa-google"></i></a>
-          </li>
-          <li>
-            <a href="#"><i class="fa fa-facebook"></i></a>
-          </li>
-          <li>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-          </li>
-        </ul>
-      </div>
+      <v-btn
+        class="mr-4 form-btn"
+        @click="submit"
+        style="color: white; background-color: black"
+      >
+        Sign in
+      </v-btn>
+      <p class="forgot-password text-right">
+        Not a member
+        <router-link :to="{ name: 'signup' }">sign up?</router-link>
+      </p>
     </form>
   </div>
 </template>
 
 <script>
+import { userServices } from "../services/user.services";
+
 export default {
   data() {
-    return {};
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  created() {
+    userServices.logout();
+    localStorage.clear();
+  },
+  methods: {
+    submit() {
+      userServices.login(this.email, this.password).then((user) => {
+        localStorage.setItem("user", JSON.stringify(user.user));
+        this.$router.replace({
+          name: "products",
+        });
+      });
+    },
   },
 };
 </script>
