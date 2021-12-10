@@ -37,6 +37,7 @@ export default new Vuex.Store({
       const index = state.products.productsLists.findIndex(
         (p) => p.id == value.id
       );
+
       if (index < 0)
         state.products.productsLists = [value, ...state.products.productsLists];
       else state.products.productsLists[index] = value;

@@ -114,9 +114,7 @@ export default {
             "user",
             JSON.stringify({ email: this.email, displayName: this.fullname })
           );
-          this.$router.replace({
-            name: "products",
-          });
+          window.location.href = "/products";
         });
     },
   },

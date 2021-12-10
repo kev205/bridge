@@ -33,7 +33,7 @@ async function listProducts(isadmin) {
     const q = query(productsCol, where("published", "==", true));
     productSnapshot = await getDocs(q);
   }
-  const products = productSnapshot.docs.map((d) => d.data());
+  const products = productSnapshot.docs.map((d) => ({ ...d.data(), id: d.id }));
   store.dispatch("fetchProducts", products);
 }
 
@@ -41,7 +41,7 @@ async function editProduct(values, id = undefined) {
   const productsCol = collection(db, "products");
   if (id) {
     setDoc(doc(productsCol, id), values);
-    store.dispatch("addProduct", values);
+    store.dispatch("addProduct", { ...values, id });
   } else {
     try {
       const d = await addDoc(productsCol, values);

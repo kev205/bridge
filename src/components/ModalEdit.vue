@@ -81,15 +81,13 @@
                 ></v-switch>
                 <v-switch
                   v-model="inStock"
-                  color="primary"
-                  label="In stock"
                   inset
+                  :label="'In stock'"
                 ></v-switch>
                 <v-switch
                   v-model="published"
-                  color="primary"
-                  label="Published"
                   inset
+                  :label="'published'"
                 ></v-switch>
                 <v-btn @click="clear" class="form-btn"> cancel </v-btn>
                 <v-btn
@@ -126,7 +124,7 @@ export default {
       name: "",
       description: "",
       image: null,
-      price: null,
+      price: 0,
       isDiscount: false,
       isService: false,
       inStock: true,
@@ -135,6 +133,7 @@ export default {
       photo: null,
     };
   },
+  props: ["isoption"],
   computed: {
     nameErrors() {
       const errors = [];
@@ -155,7 +154,6 @@ export default {
     priceErrors() {
       const errors = [];
       if (!this.$v.price.$dirty) return errors;
-      !this.$v.price.minLength && errors.push("Price must be given");
       !this.$v.price.required && errors.push("Price is required.");
       return errors;
     },
@@ -178,7 +176,7 @@ export default {
         name,
         description,
         image: photo,
-        price,
+        price: parseFloat(price),
         isDiscount,
         isService,
         inStock,
@@ -190,7 +188,7 @@ export default {
       this.name = "";
       this.description = "";
       this.image = null;
-      this.price = null;
+      this.price = 0;
       this.isDiscount = false;
       this.isService = false;
       this.inStock = true;

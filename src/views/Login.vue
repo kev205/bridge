@@ -54,9 +54,7 @@ export default {
     submit() {
       userServices.login(this.email, this.password).then((user) => {
         localStorage.setItem("user", JSON.stringify(user.user));
-        this.$router.replace({
-          name: "products",
-        });
+        window.location.href = "/products";
       });
     },
   },
