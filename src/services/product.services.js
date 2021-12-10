@@ -10,6 +10,7 @@ import {
   where,
   addDoc,
   getDoc,
+  orderBy,
 } from "firebase/firestore/lite";
 import store from "../store";
 
@@ -22,10 +23,20 @@ export const productServices = {
   get,
 };
 
-async function listProducts() {
+async function listProducts(isadmin) {
   const productsCol = collection(db, "products");
-  const q = query(productsCol, where("published", "==", true));
-  const productSnapshot = await getDocs(q);
+  let productSnapshot;
+
+  if (isadmin) {
+    productSnapshot = await getDocs(productsCol, orderBy("name", "asc"));
+  } else {
+    const q = query(
+      productsCol,
+      where("published", "==", true),
+      orderBy("name", "asc")
+    );
+    productSnapshot = await getDocs(q);
+  }
   const products = productSnapshot.docs.map((d) => d.data());
   store.dispatch("fetchProducts", products);
 }
@@ -41,7 +52,6 @@ async function editProduct(values, id = undefined) {
       const product = await getDoc(doc(productsCol, d.id));
       store.dispatch("addProduct", product.data());
     } catch (e) {
-      console.log(e);
       /** */
     }
   }

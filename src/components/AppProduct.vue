@@ -3,7 +3,9 @@
     <modal-edit v-if="product.isoption"></modal-edit>
     <v-card v-else class="mx-auto" width="310" min-height="300">
       <v-img :src="product.image" height="200px"></v-img>
-      <v-card-title> {{ product.name }} </v-card-title>
+      <v-card-title>
+        {{ product.name }}
+      </v-card-title>
       <v-card-subtitle v-if="product.inStock > 0"> Available </v-card-subtitle>
       <v-card-subtitle v-else> Not Available </v-card-subtitle>
       <v-card-actions v-if="product.description">
@@ -65,12 +67,7 @@ export default {
       show: false,
     };
   },
-  props: ["product"],
-  methods: {
-    openEdit() {
-      alert("yesss");
-    },
-  },
+  props: ["product", "isAdmin"],
   components: { ModalEdit },
 };
 </script>

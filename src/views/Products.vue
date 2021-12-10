@@ -2,7 +2,7 @@
   <div class="products-template">
     <el-row>
       <el-col :span="6" v-for="product in products" :key="product.id">
-        <app-product :product="product"></app-product>
+        <app-product :product="product" :isAdmin="isAdmin"></app-product>
       </el-col>
     </el-row>
   </div>
@@ -16,13 +16,14 @@ import { mapGetters } from "vuex";
 export default {
   components: { AppProduct },
   data() {
-    return { products: [], apiRes: [] };
-  },
-  created() {
-    productServices.listProducts();
+    return { products: [], apiRes: [], loaded: false, isAdmin: false };
   },
   watch: {
     user: function (newVal) {
+      this.isAdmin = newVal.isAdmin;
+      if (!this.loaded) {
+        productServices.listProducts(newVal.isAdmin);
+      }
       if (newVal && newVal.isAdmin) {
         const index = this.products.findIndex((p) => p.isoption);
 
@@ -30,13 +31,16 @@ export default {
       }
     },
     productsList: function (newVal) {
-      if (this.user && this.user.isAdmin)
-        this.products = [{ isoption: true }, ...newVal];
-      else this.products = newVal;
+      this.loaded = true;
+      if (this.user && this.user.isAdmin) {
+        const index = this.products.findIndex((p) => p.isoption);
+
+        if (index < 0) this.products = [{ isoption: true }, ...newVal];
+        else this.products = [this.products[index], ...newVal];
+      } else this.products = newVal;
     },
   },
   computed: {
-    // map `this.user` to `this.$store.getters.user`
     ...mapGetters({
       user: "user",
       productsList: "productsLists",
