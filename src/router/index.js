@@ -14,6 +14,13 @@ const routes = [
     },
   },
   {
+    path: "/login",
+    component: () => import("../views/Login.vue"),
+    meta: {
+      guest: true,
+    },
+  },
+  {
     path: "/signup",
     name: "signup",
     component: () => import("../views/Signup.vue"),
