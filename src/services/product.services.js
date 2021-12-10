@@ -30,11 +30,7 @@ async function listProducts(isadmin) {
   if (isadmin) {
     productSnapshot = await getDocs(productsCol, orderBy("name", "asc"));
   } else {
-    const q = query(
-      productsCol,
-      where("published", "==", true),
-      orderBy("name", "asc")
-    );
+    const q = query(productsCol, where("published", "==", true));
     productSnapshot = await getDocs(q);
   }
   const products = productSnapshot.docs.map((d) => d.data());
